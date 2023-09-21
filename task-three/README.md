@@ -19,14 +19,23 @@ Before you begin, make sure you have the following tools and dependencies instal
 
 
 2. Build frontend
-- cd frontend
-- docker build -t frontend-drpoket-task-three .
+   ```bash
+   cd frontend
+   docker build -t frontend-drpoket-task-three .
 
 3. Build backend
-- cd ../backend
-- docker build -t backend-drpoket-task-three .
+   ```bash
+   cd ../backend
+   docker build -t backend-drpoket-task-three .
 
 
 4. Deployment 
-- docker run -d -p 80:80 frontend
-- docker run -d -p 3000:3000 backend
+   ```bash
+   docker run -d -p 80:80 frontend
+   docker run -d -p 3000:3000 backend
+
+*OR*
+
+      in task-three dir:
+      ```bash
+      docker-compose up
