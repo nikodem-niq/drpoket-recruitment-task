@@ -25,3 +25,12 @@ socketServer.on('connection', socket => {
         socketServer.emit('userCount', socketServer.engine.clientsCount);
     })
 })
+
+
+app.get('/api/userCount', (req, res, next) => {
+    try {
+        return res.status(200).json({userCount});
+    } catch(error) {
+        return res.status(400)
+    }
+})

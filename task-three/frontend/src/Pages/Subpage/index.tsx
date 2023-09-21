@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react'; 
+import { useEffect } from 'react'; 
 import io from 'socket.io-client';
 
 function Subpage() {
   useEffect(() => {
     const socket = io('http://localhost:3001'); 
-
-    socket.on('userCount', (count) => {
-      setUserCount(count);
-    });
-
     return () => {
       socket.disconnect();
     };
