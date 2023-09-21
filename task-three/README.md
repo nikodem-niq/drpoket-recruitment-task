@@ -35,7 +35,7 @@ Before you begin, make sure you have the following tools and dependencies instal
    docker run -d -p 3000:3000 backend
 
 *OR*
+in /task-three/ directory:
 
-      in task-three dir:
-      ```bash
-      docker-compose up
+   ```bash
+   docker-compose up
