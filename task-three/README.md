@@ -17,7 +17,6 @@ Before you begin, make sure you have the following tools and dependencies instal
    git clone https://github.com/nikodem-niq/drpoket-recruitment-task
    cd /task-three
 
-
 2. Build frontend
    ```bash
    cd frontend
@@ -27,7 +26,6 @@ Before you begin, make sure you have the following tools and dependencies instal
    ```bash
    cd ../backend
    docker build -t backend-drpoket-task-three .
-
 
 4. Deployment 
    ```bash
