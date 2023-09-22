@@ -8,7 +8,7 @@ const fetchPaths = async () => {
     }
   });
   const data = await response.json();
-  return data.paths[2];  // mocked that 1st element is the path we are looking for
+  return data.paths[0];  // mocked that 1st element is the path we are looking for
 };
 
 const MyPath = () => {
