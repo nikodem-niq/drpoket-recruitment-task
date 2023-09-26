@@ -1,57 +1,45 @@
-import { GoogleMap, LoadScript, Polyline } from '@react-google-maps/api';
+import { GoogleMap, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import { PathFromPoints } from '../../types/PathFromPoints';
-import { useState, useEffect } from 'react';
+import { getRandomHexColor } from '../../utils/helpers';
 
 interface MapProps {
-  path: PathFromPoints
+  path: PathFromPoints | undefined,
 }
 
-// further implementations: add functionality for handling more than 1 route from db
-
 const Map: React.FC<MapProps> = ({ path }) => {
-  const DEFAULT_ZOOM = 11;
+  const DEFAULT_ZOOM = 10;
   const mapsApiKey = import.meta.env.VITE_REACT_GOOGLE_MAPS_API_KEY;
-  const [routeCoordinates, setRouteCoordinates] = useState<{lat: number, lng: number}[]>([]);
-  const [isPathShowed, setPathShowed] = useState<boolean>(false);
 
-  useEffect(() => {
-    const coordinates = path.map(point => ({
-      lat: point.latitude,
-      lng: point.longitude
-    }));
-    setRouteCoordinates(coordinates);
-  }, [path, isPathShowed]);
-
-  const handlePathShowing = () => {
-    setPathShowed(true);
-  }
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: mapsApiKey,
+    libraries: ['geometry', 'drawing'],
+  });
 
   return (
     <div className='flex flex-col'>
       <div className='w-screen h-96 mb-12'>
-        {mapsApiKey && routeCoordinates && 
-          <LoadScript googleMapsApiKey={mapsApiKey}>
-            <GoogleMap
-              mapContainerStyle={{ width: '100%', height: '100%' }}
-              center={routeCoordinates[0]}
-              zoom={DEFAULT_ZOOM}
-            >
-              {
-                isPathShowed &&
-                <Polyline 
-                path={routeCoordinates}
+        {isLoaded && (
+          <GoogleMap
+            mapContainerStyle={{ width: '100%', height: '100%' }}
+            center={{
+              lat: 37.38029, lng: -122.075106
+            }}
+            zoom={DEFAULT_ZOOM}
+          >
+            {path && (
+              <Polyline
+                path={path}
                 options={{
-                  strokeColor: "#1e4aa8",
+                  strokeColor: getRandomHexColor(),
                   strokeOpacity: 0.7,
                   strokeWeight: 4
                 }}
-                />
-              }
-            </GoogleMap>
-          </LoadScript>
-        }
+              />
+            )}
+          </GoogleMap>
+        )}
       </div>
-      <button onClick={() => {handlePathShowing()}} disabled={isPathShowed} className='bg-blue-500 disabled:opacity-50 disabled:bg-slate-700 hover:bg-blue-700 text-white font-bold text-2xl py-2 px-4 rounded w-1/1'>Pokaż przejechaną trasę</button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-export type PathFromPoints = {
-  latitude: number,
-  longitude: number
+export interface PathFromPoints {
+  latitude: number;
+  longitude: number;
 }[];

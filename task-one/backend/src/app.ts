@@ -3,12 +3,14 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import type { Request, Response, NextFunction, ErrorRequestHandler, Express } from 'express';
 import { config } from './config/config';
+import cors from 'cors';
 const app : Express = express();
 
 // Middlewares for parsing requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
+app.use(cors());
 
 // Error handling middleware
 const errorHandler: ErrorRequestHandler = (err, req: Request, res: Response, next: NextFunction) : void => {
