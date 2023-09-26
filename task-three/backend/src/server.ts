@@ -18,11 +18,13 @@ const socketServer: Server = new Server(httpServer, {
 let userCount = 0;
 socketServer.on('connection', socket => {
     userCount++;
-    socketServer.emit('userCount', socketServer.engine.clientsCount);
+    socketServer.emit('userCount', userCount);
+    console.log(`connected, count: ${userCount}`)
 
     socket.on('disconnect', () => {
         userCount--;
-        socketServer.emit('userCount', socketServer.engine.clientsCount);
+        socketServer.emit('userCount', userCount);
+        console.log(`disconnected, count: ${userCount}`)
     })
 })
 

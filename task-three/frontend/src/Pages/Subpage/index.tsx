@@ -1,5 +1,6 @@
 import { useEffect } from 'react'; 
 import io from 'socket.io-client';
+import Navbar from '../../components/Navbar';
 
 function Subpage() {
   useEffect(() => {
@@ -10,9 +11,12 @@ function Subpage() {
   }, []);
 
   return (
-  <div className="w-80vw flex items-center justify-center py-10 text-3xl">
-      Subpage
-  </div>
+  <>
+    <Navbar/>
+    <div className="w-80vw flex items-center justify-center py-10 text-3xl">
+        Subpage
+    </div>
+  </>
   );
 }
 
