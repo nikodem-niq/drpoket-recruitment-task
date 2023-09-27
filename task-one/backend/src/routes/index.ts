@@ -1,10 +1,10 @@
 import { Router } from "express";
-import pathRouter from "./path";
+import graphDataRouter from "./graphData";
 
 const appRouter : Router = Router();
 
 // Routes
-appRouter.use('/path', pathRouter)
+appRouter.use('/graph-data', graphDataRouter)
 // ...
 
 export default appRouter;

@@ -29,7 +29,7 @@ const MyPath = () => {
   }
 
   if(isError) {
-    return <div className='w-80vw flex items-center justify-center py-10 text-3xl'>Error, try to refresh!</div>
+    return <div className='w-80vw flex items-center justify-center py-10 text-3xl'>Error, try to refresh! (connection with backend couldn't be esablished)</div>
   }
 
   return (

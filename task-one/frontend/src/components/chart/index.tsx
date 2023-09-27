@@ -1,5 +1,8 @@
 import 'chart.js/auto'
 import { Radar } from 'react-chartjs-2';
+import { BACKEND_URL } from '../../constants';
+import { useQuery } from 'react-query';
+import { useEffect } from 'react';
 
 export const data = {
   labels: ['Transmission', 'Stuffines', 'Discomfort', 'Humidity', 'Pollution', 'Temperature', 'CO2', 'Density'],
@@ -61,31 +64,58 @@ export const RadarOptions = {
   }
 };
 
-// const options = {
-//   scales: {
-//     r: {
-//       suggestedMin: 1,
-//       suggestedMax: 100,
-//       pointLabels: {
-//         font: {
-//           size: 16, // Rozmiar czcionki etykiet
-//           family: 'Arial'
-//         },
-//         display: true,
-//       },
-//       ticks: {
-//         display: false, // Ukryj odstępy
-//       },
-//     },
-//   },
-//   plugins: {
-//     legend: {
-//       display: false
-//     }
-//   }
-// };
+const options = {
+  scales: {
+    r: {
+      suggestedMin: 1,
+      suggestedMax: 100,
+      pointLabels: {
+        font: {
+          size: 16, // Rozmiar czcionki etykiet
+          family: 'Arial'
+        },
+        display: true,
+      },
+      ticks: {
+        display: false, // Ukryj odstępy
+      },
+    },
+  },
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+};
+
+const fetchGraphData = async () => {
+  const response = await fetch(`${BACKEND_URL}/graph-data`, {
+    headers: {
+      method: 'GET'
+    }
+  });
+  const data = await response.json();
+  return data;
+};
 
 export default function ChartComponent() {
+  const { data: graphData, isLoading, isError } = useQuery('graphData', fetchGraphData);
+  useEffect(() => {
+    console.log(graphData)
+  }, [graphData])
+
+  if(isLoading) {
+    return (
+      <div>Loading..</div>
+    )
+  }
+
+  if(isError) {
+    return (
+      <div>Error with fetching..</div>
+    )
+  }
+
   return (
   <div className='w-screen h-2/3 flex justify-center items-cente py-10'>
     <div className='w-1/3'>
